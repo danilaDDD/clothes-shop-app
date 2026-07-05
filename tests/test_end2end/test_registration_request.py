@@ -56,8 +56,16 @@ class TestRegistrationRequest:
         resp = self.do_request(request_data, access_token=self.primary_token.token)
         assert_error_response(resp, 400)
 
-    def do_request(self, request_data, access_token=None) -> Response:
+    def test_when_existing_username_then_return_400(self):
+        account_data = gen_valid_registration_request_data()
+        existing_account = Account.objects.create(**account_data)
 
+        resp = self.do_request(account_data, access_token=self.primary_token.token)
+
+        assert_error_response(resp, 400)
+
+
+    def do_request(self, request_data, access_token=None) -> Response:
         return self.client.post(
             "/users/",
             headers={"X-Access-Token": access_token} if access_token is not None else {},
