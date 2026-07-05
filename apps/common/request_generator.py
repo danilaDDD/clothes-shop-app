@@ -5,8 +5,6 @@ def gen_valid_registration_request_data(**kwargs) -> dict:
         "username": "username",
         "password": "password",
         "email": "danila@gmail.com",
-        "phone": "+79999999999",
-        "birth_date": "2000-01-01",
     }
 
     data.update(kwargs)

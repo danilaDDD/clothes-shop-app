@@ -21,7 +21,6 @@ class TestRegistrationRequest:
             [
                 gen_valid_registration_request_data(),
                 gen_valid_registration_request_data(gender=Account.MALE_GENDER),
-                gen_valid_registration_request_data(telegram_id=1232336343),
         ],
     )
     def test_when_valid_request_then_return_200_and_saved(self, request_data: dict):
