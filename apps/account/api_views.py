@@ -1,3 +1,4 @@
+from psycopg2.errors import UniqueViolation
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -23,6 +24,7 @@ class RegistrationAPIView(AuthAPIView):
         serializer = self.serializer_class(data=request.data)
 
         serializer.is_valid(raise_exception=True)
+
         account = serializer.save()
 
         resp_data = AccountRegistrationResponseSerializer(account).data

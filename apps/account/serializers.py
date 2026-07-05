@@ -1,14 +1,17 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from apps.account.models import Account
 
 
 class AccountRegistrationSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(required=True, allow_blank=False, min_length=3)
+    username = serializers.CharField(required=True, allow_blank=False, min_length=3,
+                                      validators=[UniqueValidator(queryset=Account.objects.all())])
     first_name = serializers.CharField(required=True, allow_blank=False, min_length=3)
     last_name = serializers.CharField(required=True, allow_blank=False, min_length=3)
-    email = serializers.EmailField(required=True, allow_blank=False, min_length=3)
+    email = serializers.EmailField(required=True, allow_blank=False, min_length=3,
+                                    validators=[UniqueValidator(queryset=Account.objects.all())])
     password = serializers.CharField(write_only=True, required=True, allow_blank=False, min_length=6)
 
     class Meta:
